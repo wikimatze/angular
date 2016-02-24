@@ -37,6 +37,16 @@ Ist ein MVC für Single-Page Apps
 
 
 \subsection{Controller u. Markup}
+\begin{itemize}
+  \item ist eine Funktion die mein Scope erweitert
+  \item nimmt quasi einen leeren scopen und fügt Felder und Funktionen zu, die dann später für die view verwendet wird
+  \item ein Controller muss immer in eine App gepackt werden
+  angular.module('MyHammerLayout', [])
+    .controller("index", ["$scope", function($scope)]) => definiert einen Controller mit den Namen 'index' und im Array
+    werden wieder die Dependencies reingereicht, an dem scope packen wir unsere Funktionen und Variablen aus dem
+    Controller
+\end{itemize}
+
 
 \subsection{Services}
 
