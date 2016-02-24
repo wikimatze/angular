@@ -45,6 +45,25 @@
   \item Erweitert HTML um neue Elemente
 \end{itemize}
 
+\begin{verbatim}
+<!doctype html>
+<html ng-app="app">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    </head>
+  <body>
+    <h1 ng-controller="HelloWorldCtrl">{{ helloMessage }}</h1>
+    <script type="text/javascript">
+        angular.module('app', []).controller('HelloWorldCtrl',
+
+        function($scope) {
+            $scope.helloMessage = "Hello, World";
+        })
+    </script>
+  </body>
+</html>
+\end{verbatim}
+
 \subsection{Controller u. Markup}
 \begin{itemize}
   \item kommunizieren mit der View via One-way oder Two-way binding
