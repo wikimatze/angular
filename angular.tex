@@ -1,0 +1,49 @@
+%% config
+\def\home{../../styles}
+
+%% documentclass
+\input{\home/documentclass_normal_oneside}
+
+%% generell-styling
+\input{\home/style_proggen}
+
+%% meta-tags for pdf
+\input{tex/metatags.tex}
+
+%% fancy-header
+\input{\home/style_header_oneside}
+
+%% setting the infos for the pdf
+\input{\home/info_hypersetup}
+
+%% environments
+\input{\home/environments_normal}
+\input{\home/environments_mathe}
+
+%% cover
+\input{\home/style_cover}
+
+
+\usepackage[strings]{underscore} % don't escape underscores
+
+% label for programming-language
+\input{\home/style_ruby}
+\begin{document}
+\input{\home/style_starting_document_without_cover}
+
+\section{Angular}
+
+Ist ein MVC für Single-Page Apps
+
+
+\subsection{Controller u. Markup}
+
+\subsection{Services}
+
+\subsection{Routing}
+
+\subsection{Direktiven}
+
+\subsection{Testing}
+
+\end{document}
