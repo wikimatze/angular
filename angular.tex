@@ -73,12 +73,48 @@
     => definiert einen Controller mit den Namen 'index' und im Array
     werden wieder die Dependencies reingereicht, an dem scope packen wir unsere Funktionen und Variablen aus dem
     Controller
-  \item scope: beinhaltet das Model und ist es nicht 
+  \item scope: beinhaltet das Model und ist es nicht
   \item model: sind die Daten, die in den scope gehen
   \item view: kann Funktionen an den scope packen
+  \item \textbf{ng-src}: delay auf dem Browser zum Laden der Ressource und lässt Angular
+    entsprechende Variable ersetzen:
+    \begin{verbatim}
+<img ng-src="{{ event.imageUrl }}" alt="{{ event.name }}">
+    \end{verbatim}
 \end{itemize}
 
 
+\ulbf{Repeating Information}: geht mit ng-repeat
+
+
+\begin{verbatim}
+eventsApp.controller('EventController',
+    function EventController($scope) {
+        $scope.event = {
+            sessions: [
+                {
+                    name: 'Direktiven Meisterklasse'
+                },
+                {
+                    name: 'Scope für Spaß und Profit'
+                },
+                {
+                    name: 'Super, was die Controller so machen'
+                }
+            ]
+        };
+    }
+);
+
+// html
+	<li ng-repeat="session in event.sessions">
+		<div class="row session">
+			<div class="well span9">
+				<h4 class="well-title">{{ session.name }}</h4>
+			</div>
+		</div>
+	</li>
+\end{verbatim}
 
 
 \subsection{Services}
@@ -91,6 +127,7 @@
 \subsection{Routing}
 
 \subsection{Direktiven}
+
 
 \subsection{Testing}
 
