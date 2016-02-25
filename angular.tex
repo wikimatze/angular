@@ -147,6 +147,55 @@ eventsApp.controller('EventController',
 \end{itemize}
 
 
+\subsection{Filters}
+\begin{itemize}
+  \item Ausgabe modifizieren
+  \item können Dinge formatieren
+  \item Datenmenge sortieren
+  \item Datenmenge filtern
+    \begin{verbatim}
+    {{ expression | filter }}
+    \end{verbatim}
+\end{itemize}
+
+
+\ulbf{Built-in Filter}
+
+\begin{itemize}
+  \item uppercase und lowercase: schreiben den Ausdruck komplett groß oder klein
+    \begin{verbatim}
+<div ng-bind-html="snippet|lowercase"></div>
+    \end{verbatim}
+  \item number: runde auf oder ab
+    \begin{verbatim}
+<div>{{ 1.2345 | number:3}}</div>
+// html
+<div>1.235</div>
+    \end{verbatim}
+  \item currency: gibt die Währung aus
+    \begin{verbatim}
+<div>{{ 1.2345 | currency:"h" }}</div>
+// html
+<div>h1.23</div>
+    \end{verbatim}
+  \item date: Format kann man hier angeben
+  \item json:
+    \begin{verbatim}
+$scope.moiStyle = {color: 'red'};
+<div>{{ moiStyle | json }}</div>
+
+//html
+{ "color": "red" }
+    \end{verbatim}
+  \item orderBy:
+    \begin{verbatim}
+<li ng-repeat="session in event.sessions | orderBy:'level'">
+    \end{verbatim}
+  \item limitTo
+  \item filter
+  \item
+\end{itemize}
+
 \subsection{Services}
 \begin{itemize}
   \item kapseln Logik und Zustand der Anwendung
