@@ -117,6 +117,36 @@ eventsApp.controller('EventController',
 \end{verbatim}
 
 
+\ulbf{Event-Handling}
+
+\begin{itemize}
+  \item \textbf{ng-click}: when button is clicked the function is triggered
+    \begin{verbatim}
+        $scope.upVoteSession = function(session) {
+            session.upVoteCount++;
+        };
+
+        $scope.downVoteSession = function(session) {
+            session.upVoteCount--;
+        };
+// html
+          <li ng-repeat="session in event.sessions">
+            <div class="row session">
+              <div class="span0 well votingWidget">
+                <div class="votingButton" ng-click="upVoteSession(session)">
+                  <i class="icon-chevron-up icon-white"></i>
+                </div>
+                <div class="badge badge-inverse">
+                  <div>{{ session.upVoteCount }}</div>
+                </div>
+                <div class="votingButton" ng-click="downVoteSession(session)">
+                  <i class="icon-chevron-down"></i>
+                </div>
+              </div>
+    \end{verbatim}
+\end{itemize}
+
+
 \subsection{Services}
 \begin{itemize}
   \item kapseln Logik und Zustand der Anwendung
