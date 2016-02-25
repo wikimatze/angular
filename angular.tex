@@ -159,12 +159,14 @@ eventsApp.controller('EventController',
 \subsection{Direktiven}
 \begin{itemize}
   \item fügen HTML neue Funktionalität hinzu
+  \item immer Benutzen, wenn man etwas am DOM zu ändern hat
   \item Arten Direktiven zu schreiben:
     \begin{verbatim}
   <ng-form />
   <div ng-form />
   <div class="ng-form" />
     \end{verbatim}
+  \item ngCloak
 \end{itemize}
 
 
@@ -179,6 +181,13 @@ eventsApp.controller('EventController',
   \item ngMouseover
   \item ngMouseup
   \item ngChange: merkt Änderungen an vielen HTML Elementen, braucht aber immer ein ng-model
+  \item ngCloak: versteckt Stücke von der Seite bis Angular geladen/ausgeführt wurde (keine Flashes,
+    wenn man langsame Seiten hat)
+  \item ngStyle: kann man CSS hinzufügen:
+    \begin{verbatim}
+$scope.moiStyle = {color: 'red'};
+<h2 ng-style="moiStyle" ng-bind="event.name"</h2>
+    \end{verbatim}
 \end{itemize}
 
 
@@ -206,8 +215,14 @@ $scope.snippet = '<span style="color: red">Hio</span>';
   <span>Hio</span>
 </div>
     \end{verbatim}
-
   \item ngBindHtmlUnsafe
+  \item ngHide und ngShow: verstecken und anzeigen von Elementen, je nachdem ob er übergebene Weert
+    true oder false ist:
+    \begin{verbatim}
+$scope.boolValue = false;
+<h2 ng-show="boolValue">Eine Headline</h2>
+<h2 ng-hide="boolValue">Eine andere Headline</h2>
+    \end{verbatim}
 \end{itemize}
 
 \subsection{Testing}
