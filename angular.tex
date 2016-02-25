@@ -36,11 +36,6 @@
   \item Ist ein MV* für Single-Page Apps
   \item \textbf{Two-Way binding}: d.h. wenn sich das Model ändert, dann verändert sich auch die Seite und umgedreht. Dadurch muss man nicht auf spezifische Elemente achten.
   \item \textbf{dirty checking}: musst keine speziellen Strukturen und getter und setter Methoden schreiben, um Daten zu schreiben und zu lesen
-  \item ein Controller muss immer in eine App gepackt werden
-  angular.module('MyHammerLayout', [])
-    .controller("index", ["$scope", function($scope)]) => definiert einen Controller mit den Namen 'index' und im Array
-    werden wieder die Dependencies reingereicht, an dem scope packen wir unsere Funktionen und Variablen aus dem
-    Controller
   \item Managed Routing von Views in andere, updated URL im Browser
   \item Erweitert HTML um neue Elemente
 \end{itemize}
@@ -70,8 +65,11 @@
   \item ist eine Funktion die mein Scope erweitert
   \item nimmt quasi einen leeren scopen und fügt Felder und Funktionen zu, die dann später für die view verwendet wird
   \item ein Controller muss immer in eine App gepackt werden
+    \begin{verbatim}
   angular.module('MyHammerLayout', [])
-    .controller("index", ["$scope", function($scope)]) => definiert einen Controller mit den Namen 'index' und im Array
+    .controller("index", ["$scope", function($scope)])
+    \end{verbatim}
+    => definiert einen Controller mit den Namen 'index' und im Array
     werden wieder die Dependencies reingereicht, an dem scope packen wir unsere Funktionen und Variablen aus dem
     Controller
 \end{itemize}
@@ -81,7 +79,7 @@
 \begin{itemize}
   \item kapseln Logik und Zustand der Anwendung
   \item mit denen kommuniziert man mit den Server
-\end{itemize}  
+\end{itemize}
 
 
 \subsection{Routing}
