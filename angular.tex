@@ -182,6 +182,34 @@ eventsApp.controller('EventController',
 \end{itemize}
 
 
+\ulbf{Andere Direktiven}
+\begin{itemize}
+  \item ngApp:
+  \item ngBind: ersetzt den HTML Inhalt vom festgelegten Element mit dem Wert des Ausdrucks
+    \begin{verbatim}
+<h2 ng-bind="event.name"</h2>
+    \end{verbatim}
+  \item ngBindTemplate: Hier kann man mehrere Ausdrücke ersetzen lassen
+    \begin{verbatim}
+<h2 ng-bind-template="{{ event.name }} {{ event.date }}"</h2>
+    \end{verbatim}
+  \item ngBindHtml: fügt HTML sicher ein, d.h. HTML wird durch sanitize Service gefeuert und die
+    filtert einige ungewollte Sachen raus (wie \uline{z.B.} inline styles)
+
+    \begin{verbatim}
+$scope.snippet = '<span style="color: red">Hio</span>';
+
+// html
+<div ng-bind-html="snippet"></div>
+// output:
+<div class="ng-binding" ng-bind-html="snippet">
+  <span>Hio</span>
+</div>
+    \end{verbatim}
+
+  \item ngBindHtmlUnsafe
+\end{itemize}
+
 \subsection{Testing}
 
 \end{document}
