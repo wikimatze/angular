@@ -147,6 +147,23 @@ eventsApp.controller('EventController',
 \end{itemize}
 
 
+\subsection{Two way binding}
+\begin{itemize}
+  \item geht via ngModel über die folgenden HTML Elemente:
+    \begin{itemize}
+      \item input
+      \item select
+      \item textarea
+    \end{itemize}
+  \item Beispiel:
+    \begin{verbatim}
+<input type="text" ng-model="object.property" />
+<input type="text" ng-model="property" />
+<input type="text" ng-model="object.container.property" />
+    \end{verbatim}
+  \item
+\end{itemize}
+
 \subsection{Filters}
 \begin{itemize}
   \item Ausgabe modifizieren
@@ -195,6 +212,29 @@ $scope.moiStyle = {color: 'red'};
   \item filter
   \item
 \end{itemize}
+
+
+\ulbf{Eigene Filter schreiben}
+\begin{verbatim}
+'use strict';
+
+eventsApp.filter('durations', function () {
+    return function(duration) {
+        switch(duration) {
+            case 1:
+                return "One hour";
+            case 2:
+                return "Two hours"
+        }
+    }
+})
+
+// html
+<span>Duration: {{ session.duration | durations }}</span><br/>
+
+\end{verbatim}
+
+
 
 \subsection{Services}
 \begin{itemize}
