@@ -294,7 +294,12 @@ return $resource('/data/event/:id', {id:'@id'}).get({id:1});
   \item \$anchorScroll: gehe an die entsprechende Stelle im HTML
   \item \$cacheFactory:
   \item \$compile: wird verwendet sobald Seite geladen ist, grast die Seite nach Direktiven ab und
-    führt diese aus
+    führt diese aus. Nimmt HTML als input und fügt es es dann in einen bestimmen scope wieder ein
+    \begin{verbatim}
+var template = "<button ng-click='doSomething()'>{{label}}</button>";
+
+$compile(template)(scope);
+    \end{verbatim}
   \item \$parse
   \item \$locale
   \item \$timeout
