@@ -2,39 +2,39 @@
 \def\home{../../styles}
 
 %% documentclass
-\input{\home/documentclass_normal_oneside}
+\input{../../styles/documentclass_normal_oneside}
 
 %% generell-styling
-\input{\home/style_proggen}
+\input{../../styles/style_proggen}
 
 %% meta-tags for pdf
 \input{tex/metatags.tex}
 
 %% fancy-header
-\input{\home/style_header_oneside}
+\input{../../styles/style_header_oneside}
 
 %% setting the infos for the pdf
-\input{\home/info_hypersetup}
+\input{../../styles/info_hypersetup}
 
 %% environments
-\input{\home/environments_normal}
-\input{\home/environments_mathe}
+\input{../../styles/environments_mathe}
+\input{../../styles/environments_normal}
 
 %% cover
-\input{\home/style_cover}
+\input{../../styles/style_cover}
 
 
 \usepackage[strings]{underscore} % don't escape underscores
 
 % label for programming-language
-\input{\home/style_ruby}
+\input{../../styles/style_ruby}
 \begin{document}
-\input{\home/style_starting_document_without_cover}
+\input{../../styles/style_starting_document_without_cover}
 
 \section{Angular}
 \begin{itemize}
   \item Ist ein MV* für Single-Page Apps
-  \item \textbf{Two-Way binding}: d.h. wenn sich das Model ändert, dann verändert sich auch die Seite und umgedreht. Dadurch muss man nicht auf spezifische Elemente achten.
+  \item \textbf{Two-Way binding}: d.h.\ wenn sich das Model ändert, dann verändert sich auch die Seite und umgedreht. Dadurch muss man nicht auf spezifische Elemente achten.
   \item \textbf{dirty checking}: musst keine speziellen Strukturen und getter und setter Methoden schreiben, um Daten zu schreiben und zu lesen
   \item Managed Routing von Views in andere, updated URL im Browser
   \item Erweitert HTML um neue Elemente
@@ -70,7 +70,7 @@
   angular.module('MyHammerLayout', [])
     .controller("index", ["$scope", function($scope)])
     \end{verbatim}
-    => definiert einen Controller mit den Namen 'index' und im Array
+    definiert einen Controller mit den Namen \enquote{Index} und im Array
     werden wieder die Dependencies reingereicht, an dem scope packen wir unsere Funktionen und Variablen aus dem
     Controller
   \item scope: beinhaltet das Model und ist es nicht
@@ -107,13 +107,13 @@ eventsApp.controller('EventController',
 );
 
 // html
-	<li ng-repeat="session in event.sessions">
-		<div class="row session">
-			<div class="well span9">
-				<h4 class="well-title">{{ session.name }}</h4>
-			</div>
-		</div>
-	</li>
+  <li ng-repeat="session in event.sessions">
+    <div class="row session">
+      <div class="well span9">
+        <h4 class="well-title">{{ session.name }}</h4>
+      </div>
+    </div>
+  </li>
 \end{verbatim}
 
 
@@ -164,7 +164,29 @@ eventsApp.controller('EventController',
     \end{verbatim}
 
     Wenn ich nun im Feld Objekt-Property was ändere, dann ändert sich auch das HTML
-  \item
+  \item wenn man auf eine Eigenschaft verweist, die es nicht gibt, dann wird diese Eigenschaft
+    automatisch erstellt
+\end{itemize}
+
+
+\subsection{Validierung}
+\begin{itemize}
+  \item required:
+    \begin{verbatim}
+<input id="eventName" ng-model="event.name" required type="text" placeholder="Name of your event..."/>
+    \end{verbatim}
+  \item ngPattern: nehmen ein Regex (denke an Regex-Begrenzer)
+    \begin{verbatim}
+<input id="eventDate" ng-model="event.date" required ng-pattern="/\d\d/\d\d/\d\d\d\d/" type="text" placeholder="Date of your event (dd/mm/yyyy)..."/>
+    \end{verbatim}
+  \item Form properties:
+    \begin{itemize}
+      \item \$dirty: form hat sich geändert
+      \item \$invalid: ist die Form fehlerhaft
+      \item \$pristine: form hat sich nicht geändert
+      \item \$valid: ist Form korrekt?
+    \end{itemize}
+  \item CSS Klassen
 \end{itemize}
 
 \subsection{Filters}
@@ -242,8 +264,24 @@ eventsApp.filter('durations', function () {
 \subsection{Services}
 \begin{itemize}
   \item kapseln Logik und Zustand der Anwendung
-  \item mit denen kommuniziert man mit den Server
+  \item Services kommuniziert man mit den Server
+  \item Vorteile: wiederverwendbar, testbar, werden mit Dependency Injection in andere Services oder
+    Controller
 \end{itemize}
+
+
+\ulbf{Built-in}
+
+
+\ulbf{Eigene Services}
+\begin{verbatim}
+eventsApp.factory('eventData', function(){
+  return {
+
+  };
+});
+
+\end{verbatim}
 
 
 \subsection{Routing}
