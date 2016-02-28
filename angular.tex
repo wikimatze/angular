@@ -291,6 +291,10 @@ return $resource('/data/event/:id', {id:'@id'}).get({id:1});
   \begin{verbatim}
   return $resource('/data/event/:id', {id:'@id'}).get({id:1}, {"getAll": {method: "GET", isArray: true}, params: {}});
   \end{verbatim}
+
+  \begin{itemize}
+    \item query() Method ist wie ein get, gibt die Query-Parameter jedoch als Array zurück
+  \end{itemize}
   \item \$anchorScroll: gehe an die entsprechende Stelle im HTML
   \item \$cacheFactory:
   \item \$compile: wird intern von Angular verwendet sobald Seite geladen ist, grast die Seite nach Direktiven ab und
@@ -361,7 +365,8 @@ eventsApp.factory('eventData', function(){
 \subsection{Routing}
 \begin{itemize}
   \item muss man \$routeProvider definieren und diese REssource in angular auch laden
-  \item ng-view ist die Komponente, wo die Sachen dann hingerendert werden:
+  \item ng-view ist die Komponente, wo die Sachen dann hingerendert werden, Verlinkung zur Route
+    muss jedoch Raute enthalten, damit man weiß, dass es sich um so eine Route handelt
 \begin{verbatim}
 // js
 var eventsApp = angular.module('eventsApp',['ngResource', 'ngRoute'])
@@ -374,11 +379,15 @@ var eventsApp = angular.module('eventsApp',['ngResource', 'ngRoute'])
 });
 
 // html
+<li><a href="#/newEvent">Create Event</a></li>
+
 <ng-view></ng-view>
 
 \end{verbatim}
 
-  \item Templates werden in ng-view geladen
+  \item Templates werden in ng-view geladen und in den Template cache gepackt, d.h.\ wenn man im
+    Browser-Verlauf vor und zurückgeht, dann wird die Seite erneut mit den Inhalten geladen, ohne
+    das ein neuer Request gemacht wird
   \item
   \item
 \end{itemize}
