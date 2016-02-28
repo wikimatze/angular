@@ -388,8 +388,14 @@ var eventsApp = angular.module('eventsApp',['ngResource', 'ngRoute'])
   \item Templates werden in ng-view geladen und in den Template cache gepackt, d.h.\ wenn man im
     Browser-Verlauf vor und zurückgeht, dann wird die Seite erneut mit den Inhalten geladen, ohne
     das ein neuer Request gemacht wird
-  \item
-  \item
+  \item Parameter im routing:
+\begin{verbatim}
+$routeProvider.when('/event/:eventId', {})
+\end{verbatim}
+  \item Default-Route festlegen:
+\begin{verbatim}
+  $routeProvider.otherwise({redirectTo: '/events'}), {})
+\end{verbatim}
 \end{itemize}
 
 \subsection{Direktiven}
