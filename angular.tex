@@ -271,6 +271,53 @@ eventsApp.filter('durations', function () {
 
 
 \ulbf{Built-in}
+\begin{itemize}
+  \item \$http: input ist method und URL (wird also gut für Ajax verwendet) am besten verwenden,
+    wenn man nicht mit Resful-Webservices zu tun hat
+    \begin{verbatim}
+$http({method: 'GET', url: '/data/event/1'}).
+success(function(data, status, headers, config)  {
+  successCallback(data);
+}).
+error(function(data, status, headers, config) {
+  window.console.log(data, status, headers, config);
+})
+    \end{verbatim}
+  \item \$resource: basiert auf REST-Architektur vom Server
+  \begin{verbatim}
+return $resource('/data/event/:id', {id:'@id'}).get({id:1});
+  \end{verbatim}
+    man kann als letzten Parameter aber auch eigene Actions hinpacken
+  \begin{verbatim}
+  return $resource('/data/event/:id', {id:'@id'}).get({id:1}, {"getAll": {method: "GET", isArray: true}, params: {}});
+  \end{verbatim}
+  \item \$anchorScroll: gehe an die entsprechende Stelle im HTML
+  \item \$cacheFactory:
+  \item \$compile: wird verwendet sobald Seite geladen ist, grast die Seite nach Direktiven ab und
+    führt diese aus
+  \item \$parse
+  \item \$locale
+  \item \$timeout
+  \item \$exceptionHandler
+  \item \$filter
+  \item \$cookieStore
+  \item \$interpolate
+  \item \$rootScope
+  \item \$window
+  \item \$document
+  \item \$rootElement
+  \item Verwendung in Routing:
+    \begin{itemize}
+      \item \$route
+      \item \$routeParams
+      \item \$location
+    \end{itemize}
+  \item Testing:
+    \begin{itemize}
+      \item \$httpBackend
+      \item \$controller
+    \end{itemize}
+\end{itemize}
 
 
 \ulbf{Eigene Services}
@@ -397,3 +444,14 @@ $scope.boolValue = false;
 \subsection{Testing}
 
 \end{document}
+
+
+\subsection{Unsorted}
+\begin{itemize}
+  \item angular.element: finde Elemente im Dom (ganz wie jQuery)
+    \begin{verbatim}
+angular.element(#ichbineindiv)
+    \end{verbatim}
+  \item
+  \item
+\end{itemize}
