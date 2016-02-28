@@ -293,14 +293,20 @@ return $resource('/data/event/:id', {id:'@id'}).get({id:1});
   \end{verbatim}
   \item \$anchorScroll: gehe an die entsprechende Stelle im HTML
   \item \$cacheFactory:
-  \item \$compile: wird verwendet sobald Seite geladen ist, grast die Seite nach Direktiven ab und
+  \item \$compile: wird intern von Angular verwendet sobald Seite geladen ist, grast die Seite nach Direktiven ab und
     führt diese aus. Nimmt HTML als input und fügt es es dann in einen bestimmen scope wieder ein
     \begin{verbatim}
 var template = "<button ng-click='doSomething()'>{{label}}</button>";
 
 $compile(template)(scope);
     \end{verbatim}
-  \item \$parse
+  \item \$parse: wertet einen Ausdruck aus und gibt eine Funktion zurück, an die einen Kontext
+    übergeben werden kann
+    \begin{verbatim}
+    var getter = $parse('event.name');
+    var context = {event: {name: "Hallo"}}
+    getter(context);
+    \end{verbatim}
   \item \$locale
   \item \$timeout
   \item \$exceptionHandler
