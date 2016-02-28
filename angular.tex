@@ -307,16 +307,32 @@ $compile(template)(scope);
     var context = {event: {name: "Hallo"}}
     getter(context);
     \end{verbatim}
-  \item \$locale
-  \item \$timeout
-  \item \$exceptionHandler
+  \item \$locale: wird für Lokalisierung verwendet
+    \begin{verbatim}
+$locale.DATETIME_FORMATS.fullDate;
+    \end{verbatim}
+
+  \item \$timeout: JavaScript timeouts service
+    \begin{verbatim}
+$timeout(function() {
+
+}, 3000)
+    \end{verbatim}
+  \item \$exceptionHandler:
   \item \$filter
-  \item \$cookieStore
-  \item \$interpolate
-  \item \$rootScope
-  \item \$window
-  \item \$document
-  \item \$rootElement
+  \item \$cookieStore: ist ein Extra Angular Module
+  \item \$interpolate: wird von \$compile verwendet
+  \item \$log: damit kann man bestimmte Sachen loggen
+    \begin{verbatim}
+$log.log("log");
+$log.info("log");
+$log.warn("log");
+$log.error("log");
+    \end{verbatim}
+  \item \$rootScope: gibt es nur einmal per App
+  \item \$window: gut für Unit-Tests
+  \item \$document:
+  \item \$rootElement: Zugriff auf Angular root element
   \item Verwendung in Routing:
     \begin{itemize}
       \item \$route
@@ -343,6 +359,29 @@ eventsApp.factory('eventData', function(){
 
 
 \subsection{Routing}
+\begin{itemize}
+  \item muss man \$routeProvider definieren und diese REssource in angular auch laden
+  \item ng-view ist die Komponente, wo die Sachen dann hingerendert werden:
+\begin{verbatim}
+// js
+var eventsApp = angular.module('eventsApp',['ngResource', 'ngRoute'])
+.config(function($routeProvider) {
+    $routeProvider.when('/newEvent',
+        {
+            templateUrl: 'templates/NewEvent.html',
+            controller: 'EditEventController'
+        })
+});
+
+// html
+<ng-view></ng-view>
+
+\end{verbatim}
+
+  \item Templates werden in ng-view geladen
+  \item
+  \item
+\end{itemize}
 
 \subsection{Direktiven}
 \begin{itemize}
