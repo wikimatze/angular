@@ -423,6 +423,7 @@ $location.url('/newEvent');
 
 \subsection{Direktiven}
 \begin{itemize}
+  \item beiten cross-browser Web Components Funktionalität (die sind aktuell nur ein Draft im w3.org)
   \item fügen HTML neue Funktionalität hinzu
   \item immer Benutzen, wenn man etwas am DOM zu ändern hat
   \item Arten Direktiven zu schreiben:
@@ -432,6 +433,28 @@ $location.url('/newEvent');
   <div class="ng-form" />
     \end{verbatim}
   \item ngCloak
+  \item Beispiel-Direktive:
+    \begin{verbatim}
+eventsApp.directive('mySample', function() {
+  return {
+    link: function(scope, element, attrs, controller) {
+      var bla = "<input type='text' ng-model='sampleData'/>{{ sampleData }}";
+      angular.element(element).html(markup);
+    }
+  }
+})
+// html
+<div my-sample></div>
+    \end{verbatim}
+    $\Rightarrow$  Direktiven sind Camel-Case, da HTML dies nicht unterstützt, macht Angular lustige
+    Dashes draus
+  \item link nimmt immer vier Parameter:
+    \begin{itemize}
+      \item scope:
+      \item element:
+      \item attrs:
+      \item controller:
+    \end{itemize}
 \end{itemize}
 
 
