@@ -556,8 +556,46 @@ $scope.boolValue = false;
 \subsection{Testing}
 \begin{itemize}
   \item wird am besten mit karma und jasmine gemacht
-  \item
-  \item
+  \item Outline von einem Test:
+    \begin{verbatim}
+'use strict';
+
+describe('EventListController', function() {
+    it('should set the scope events to the result of eventData.getAllEvents', function () {
+
+    })
+});
+    \end{verbatim}
+  \item die App muss im Test geladen werden mit module von angular-mocks extension:
+    \begin{verbatim}
+beforeEach(module("eventsApp"));
+    \end{verbatim}
+  \item inject: gucke die Funktionen in Angulars registry nach und finde passende Services dafür heraus
+    \begin{verbatim}
+beforeEach(inject(function($controller, $rootScope) {
+    ...
+ }));
+    \end{verbatim}
+  \item \ulbf{sinon.js}: Stubbing Tool
+    \begin{itemize}
+      \item stubs mit sinon.js erstellen:
+        \begin{verbatim}
+mockEventData = sinon.stub({getAllEvents: function() {}})
+        \end{verbatim}
+      \item call auf stub machen und was zurückgeben:
+        \begin{verbatim}
+mockEventData.getAllEvents.returns(mockEvents);
+        \end{verbatim}
+    \end{itemize}
+  \item \ulbf{Controller testing}:
+    \begin{itemize}
+      \item Controller Konstruktor ist mit \$controller verfügbar
+      \item scope erzeugen: einfach \$rootScope injecten und dann \$new darauf aufrufen um einen neuen
+        Scope für den Test zu erzeugen
+        \begin{verbatim}
+    scope = $rootScope.$new();
+        \end{verbatim}
+    \end{itemize}
 \end{itemize}
 
 
