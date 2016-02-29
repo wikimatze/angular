@@ -587,7 +587,8 @@ mockEventData = sinon.stub({getAllEvents: function() {}})
 mockEventData.getAllEvents.returns(mockEvents);
         \end{verbatim}
     \end{itemize}
-  \item \ulbf{Controller testing}:
+  \item \ulbf{Controller testing}: man testet eigentlich immer nur den Scope, der durch den
+    Controller erstellt wird
     \begin{itemize}
       \item Controller Konstruktor ist mit \$controller verfügbar
       \item scope erzeugen: einfach \$rootScope injecten und dann \$new darauf aufrufen um einen neuen
@@ -596,6 +597,76 @@ mockEventData.getAllEvents.returns(mockEvents);
     scope = $rootScope.$new();
         \end{verbatim}
     \end{itemize}
+  \item Beispiel 1:
+    \begin{verbatim}
+'use strict';
+
+eventsApp.controller('EventListController',
+    function EventListController($scope, eventData) {
+        $scope.events = eventData.getAllEvents();
+    }
+);
+
+
+'use strict';
+
+describe('EventListController', function() {
+    var controller, scope, mockEventData;
+    beforeEach(module("eventsApp"));
+
+    beforeEach(inject(function($controller, $rootScope) {
+        controller = $controller;
+        scope = $rootScope.$new();
+        mockEventData = sinon.stub({getAllEvents: function() {}})
+    }));
+
+    it('should set the scope events to the result of eventData.getAllEvents', function () {
+        var mockEvents = {};
+        mockEventData.getAllEvents.returns(mockEvents);
+
+        controller("EventListController",
+            { '$scope': scope, eventData: mockEventData });
+
+        expect(scope.events).toBe(mockEvents);
+    })
+});
+    \end{verbatim}
+  \item Beispiel 2:
+    \begin{verbatim}
+'use strict';
+
+eventsApp.controller('EditProfileController',
+    function EditProfileController($scope, gravatarUrlBuilder) {
+        $scope.getGravatarUrl = function(email) {
+            return gravatarUrlBuilder.buildGravatarUrl(email);
+        }
+    }
+);
+
+
+'use strict';
+
+describe('EditProfileController', function() {
+    var controller, scope, mockGravatarUrlBuilder;
+    beforeEach(module("eventsApp"));
+
+    beforeEach(inject(function($controller, $rootScope) {
+        controller = $controller;
+        scope = $rootScope.$new();
+        mockGravatarUrlBuilder = sinon.stub({buildGravatarUrl: function() {}});
+
+    }));
+
+    it('should build the gravatar with the given email', function () {
+        controller("EditProfileController",
+            { '$scope': scope, gravatarUrlBuilder: mockGravatarUrlBuilder });
+        var email = "matze@wikimatze.de";
+
+        scope.getGravatarUrl(email);
+        expect(mockGravatarUrlBuilder.buildGravatarUrl.calledWith(email)).toBe(true);
+    })
+});
+    \end{verbatim}
 \end{itemize}
 
 
