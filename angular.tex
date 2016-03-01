@@ -692,8 +692,124 @@ describe('calendarHelper', function() {
     }))
 });
         \end{verbatim}
+      \item mit \$provide und anschließend \$provide.value kann man Angular sagen, dass es statt den eigentlichen Service den Mock
+        verwenden soll
+        \begin{verbatim}
+beforeEach(function() {
+  userResourceMock = sinon.stub({get: function() {}});
+  module(function($provide) {
+    $provide.value('userResource', userResourceMock);
+  })
+});
+        \end{verbatim}
+      \item Beispiel:
+        \begin{verbatim}
+'use strict';
 
-      \item
+eventsApp.factory('userData', ['userResource', function(userResource) {
+    return {
+        getUser: function(username, callback) {
+            return userResource.get({username: username}, function(user) {
+                if (callback)
+                    callback(user);
+            });
+        },
+
+        save: function(user) {
+            userResource.save(user);
+        }
+    }
+}]);
+
+'use strict';
+
+describe('userData', function() {
+    var userResourceMock;
+
+    beforeEach(module('eventsApp'));
+
+    beforeEach(function() {
+        userResourceMock = sinon.stub({get: function() {}, save: function() {}});
+        module(function($provide) {
+            $provide.value('userResource', userResourceMock);
+        })
+    });
+
+    describe('getUser', function() {
+        it('should call userResource.get with the username', inject(function(userData) {
+            userData.getUser('Matze');
+
+            expect(userResourceMock.get.args[0][0]).toEqual({username: 'Matze'});
+        }))
+
+        it('should return whatever userResource.get returns', inject(function(userData) {
+            userResourceMock.get.returns('Matze rocks');
+
+            var result = userData.getUser('Matze');
+            expect(result).toBe('Matze rocks');
+        }))
+    })
+
+    describe('save', function() {
+        it('should call userResource.save with user parameter', inject(function(userData) {
+            userData.save('Matze');
+            expect(userResourceMock.save.calledWith('Matze')).toBe(true);
+        }))
+    })
+});
+        \end{verbatim}
+			\item Testing Services mit Ajax Requests: geht mit \$httpbackend:
+        \begin{itemize}
+          \item der fängt alle XHR Requests ab und sagt uns, was die waren; es sagt auch, wenn es unerwartete Calls bekommt
+          \item  \$httpbackend.flush lässt einen Call durchgehen und gibt zurück was passiert ist und antwortet drauf, wenn eine Response benötigt wird;
+          \item \$httpBackend.when damit setzt man Erwartungen ans Backend und kann ihn sagen, wenn ein bestimmtes Verb reinkommt, was zurückgegeben werden soll
+            \begin{verbatim}
+$httpBackend.when('GET', '/data/event/11').respond({});
+            \end{verbatim}
+          \item weitere Expectation:
+            \begin{verbatim}
+$httpBackend.verifyNoOutstandingExpectation();
+$httpBackend.verifyNoOutstandingRequest();
+            \end{verbatim}
+          \item Beispiel:
+            \begin{verbatim}
+'use strict';
+
+eventsApp.factory('eventData', function($resource) {
+    var resource = $resource('/data/event/:id', {id: '@id'});
+    var event = {};
+    return {
+        getEvent: function(eventId) {
+            return resource.get({id: eventId});
+        },
+
+        save: function(event) {
+            event.id = 999
+            return resource.save(event);
+        },
+
+        getAllEvents: function() {
+            return resource.query();
+        }
+    }
+});
+
+'use strict';
+
+describe('eventData', function() {
+    beforeEach(module('eventsApp'));
+
+    it('should issue a GET reqquest to /data/event/11 when getEvent is called with the id 11', inject(function(eventData, $httpBackend) {
+        $httpBackend.when('GET', '/data/event/11').respond({name: 11});
+        var event = eventData.getEvent(11);
+        $httpBackend.flush();
+
+        expect(event.name).toBe(11);
+    }))
+});
+            \end{verbatim}
+
+        \end{itemize}
     \end{itemize}
 \end{itemize}
 
