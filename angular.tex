@@ -808,9 +808,39 @@ describe('eventData', function() {
     }))
 });
             \end{verbatim}
-
         \end{itemize}
     \end{itemize}
+  \item Filter:
+    \begin{verbatim}
+'use strict';
+
+eventsApp.filter('durations', function() {
+    return function(duration) {
+        switch (duration) {
+            case 1:
+                return "Half Hours";
+            case 2:
+                return "1 Hour";
+        }
+    }
+});
+
+'use strict';
+
+describe('durations', function() {
+    beforeEach(module('eventsApp'));
+
+    it('should retrun "Half Hour" when given a 1', inject(function(durationsFilter) {
+        expect(durationsFilter(1)).toEqual('Half Hours');
+    }))
+
+    it('should retrun "1 Hour" when given a 2', inject(function(durationsFilter) {
+        expect(durationsFilter(2)).toEqual('1 Hour');
+    }))
+});
+    \end{verbatim}
+	$\Rightarrow$  man beachte dass hier durationsFilter injected wird
+
 \end{itemize}
 
 
