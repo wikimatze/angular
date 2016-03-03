@@ -840,7 +840,61 @@ describe('durations', function() {
 });
     \end{verbatim}
 	$\Rightarrow$  man beachte dass hier durationsFilter injected wird
+  \item \ulbf{Directiven Testen}
+    \begin{itemize}
+      \item \$rootScope wird  verwendet, da wir ein Scope für die Direktive brauchen
+      \item \$compile: müssen die Direktive ja compilieren
+      \item angular.element erstellt ein DOM Element
+      \item \$compile(el)(scope): Angular parst das HTML und es findet Direktiven, dann werden die
+        compiliert und die Funktion gibt eine weitere Funktion zurück, die einen bestimmten Scope
+        erwartet
+      \item scope.\$digest: um die Bindings zu updaten, müssen wir den digest cycle ausführen, denn Angular
+        updated nicht die Bindings in HTML bis ein digest cycle ausgeführt wurde
+      \item Beispiel
+        \begin{verbatim}
+'use strict';
 
+eventsApp.factory('eventData', function($resource) {
+    var resource = $resource('/data/event/:id', {id: '@id'});
+    var event = {};
+    return {
+        getEvent: function(eventId) {
+            return resource.get({id: eventId});
+        },
+
+        save: function(event) {
+            event.id = 999
+            return resource.save(event);
+        },
+
+        getAllEvents: function() {
+            return resource.query();
+        }
+    }
+});
+
+'use strict';
+
+describe('eventThumbnail', function() {
+    var el;
+    beforeEach(module('eventsApp'));
+    beforeEach(module('partials/directives/eventThumbnail.html'));
+
+    beforeEach(inject(function($compile, $rootScope) {
+        var scope = $rootScope.new;
+        scope.event = {id: 1}
+
+        el = angular.element('<event-thumbnail event="event" />');
+        $compile(el)(scope) ;
+        scope.$digest();
+    }))
+
+    it('should bind the data', function() {
+        expect(el.text()).toContain('Angular Expo');
+    })
+});
+        \end{verbatim}
+    \end{itemize}
 \end{itemize}
 
 
