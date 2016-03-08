@@ -476,7 +476,30 @@ eventsApp.directive('mySample', function() {
 $scope.moiStyle = {color: 'red'};
 <h2 ng-style="moiStyle" ng-bind="event.name"</h2>
     \end{verbatim}
-  \item ngClass: setzt eine CSS-Klasse
+  \item ngClass: setzt eine CSS-Klasse und nimmt einen String als Input, der zu komma separierten String, Array von Klassen-Namen  und key-value-map passt
+  \begin{verbatim}
+  <div ng-app="myApp">
+  <p>Name: <input type="text" ng-model="name"></p>
+  <h1 ng-class="{bold: isBold(), italic: isItalic() }">Hello {{ name }}</h1>
+  {{ firstName }}
+  <div ng-controller="myCtrl">
+    <h1 ng-class="{'bold': isBold(), 'italic': isItalic() }">Hello {{ name }}</h1>
+    {{ firstName}}
+    {{ lastName}}
+  </div>
+</div>
+<script>
+  var app = angular.module('myApp', []);
+  app.controller('myCtrl', function($scope) {
+      $scope.firstName = 'Matthias';
+      $scope.lastName = "Günther";
+      $scope.isBold = function () { return $scope.name === "bold" };
+      $scope.isItalic = function () { return $scope.name === "italic" };
+      });
+</script>
+
+  \end{verbatim}
+
   \item ngClassEven und ngClassOdd: gut mit ng-repeat werden sie nur auf gerade/ungeraden Elemente angewendet
     \begin{verbatim}
           <li ng-repeat="session in event.sessions">
